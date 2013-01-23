@@ -135,3 +135,8 @@ mrb_mruby_qrdecode_gem_init(mrb_state* mrb)
   mrb_define_method(mrb, class_decoder, "initialize", mrb_qr_decoder_init, ARGS_NONE());
   mrb_define_method(mrb, class_decoder, "decode", mrb_qr_decoder_decode, ARGS_REQ(1));
 }
+
+void
+mrb_mruby_qrdecode_gem_final(mrb_state* mrb) 
+{ 
+}
