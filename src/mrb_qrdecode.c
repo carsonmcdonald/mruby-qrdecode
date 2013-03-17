@@ -63,8 +63,7 @@ mrb_qr_decoder_decode(mrb_state *mrb, mrb_value self)
 {
   mrb_value value_decoder = mrb_iv_get(mrb, self, mrb_intern(mrb, "decoder"));
 
-  struct quirc *decoder = NULL;
-  Data_Get_Struct(mrb, value_decoder, &mrb_qr_decoder_type, decoder);
+  struct quirc *decoder = mrb_get_datatype(mrb, value_decoder, &mrb_qr_decoder_type);
   if(!decoder)
   {
     mrb_raise(mrb, E_ARGUMENT_ERROR, "Decoder instance variable not set.");
