@@ -4,6 +4,8 @@ MRuby::Gem::Specification.new('mruby-qrdecode') do |spec|
   spec.version = '0.1.0'
   spec.description = 'mruby qr code decoder, uses quirc.'
   spec.homepage = 'https://github.com/carsonmcdonald/mruby-qrdecode'
+
+  spec.add_dependency('mruby-jpeg')
  
   spec.cc.flags << "-I #{spec.dir}/src/quirc/lib/"
 
