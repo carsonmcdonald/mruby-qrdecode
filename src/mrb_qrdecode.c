@@ -53,7 +53,7 @@ mrb_qr_decoder_init(mrb_state *mrb, mrb_value self)
     mrb_raise(mrb, E_RUNTIME_ERROR, "Could not allocate decoder.");
   }
 
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "decoder"), mrb_obj_value(Data_Wrap_Struct(mrb, mrb->object_class, &mrb_qr_decoder_type, (void*)decoder)));
+  mrb_iv_set(mrb, self, mrb_intern_lit(mrb, "decoder"), mrb_obj_value(Data_Wrap_Struct(mrb, mrb->object_class, &mrb_qr_decoder_type, (void*)decoder)));
 
   return self;
 }
@@ -61,7 +61,7 @@ mrb_qr_decoder_init(mrb_state *mrb, mrb_value self)
 static mrb_value
 mrb_qr_decoder_decode(mrb_state *mrb, mrb_value self)
 {
-  mrb_value value_decoder = mrb_iv_get(mrb, self, mrb_intern(mrb, "decoder"));
+  mrb_value value_decoder = mrb_iv_get(mrb, self, mrb_intern_lit(mrb, "decoder"));
 
   struct quirc *decoder = mrb_get_datatype(mrb, value_decoder, &mrb_qr_decoder_type);
   if(!decoder)
@@ -76,8 +76,8 @@ mrb_qr_decoder_decode(mrb_state *mrb, mrb_value self)
     mrb_raise(mrb, E_ARGUMENT_ERROR, "Invalid argument.");
   }
 
-  mrb_value value_width = mrb_iv_get(mrb, value_image, mrb_intern(mrb, "width"));
-  mrb_value value_height = mrb_iv_get(mrb, value_image, mrb_intern(mrb, "height"));
+  mrb_value value_width = mrb_iv_get(mrb, value_image, mrb_intern_lit(mrb, "width"));
+  mrb_value value_height = mrb_iv_get(mrb, value_image, mrb_intern_lit(mrb, "height"));
 
   if(quirc_resize(decoder, mrb_fixnum(value_width), mrb_fixnum(value_height)) < 0)
   {
@@ -86,7 +86,7 @@ mrb_qr_decoder_decode(mrb_state *mrb, mrb_value self)
 
   uint8_t *image_buffer = quirc_begin(decoder, NULL, NULL);
 
-  mrb_value value_data = mrb_iv_get(mrb, value_image, mrb_intern(mrb, "data"));
+  mrb_value value_data = mrb_iv_get(mrb, value_image, mrb_intern_lit(mrb, "data"));
   memcpy(image_buffer, RSTRING_PTR(value_data), RSTRING_LEN(value_data));
  
   quirc_end(decoder);
